@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✍️ كتابة إعلان تسويقي</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        /* ========== RESET STYLES ========== */
+        * {
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+            font-family: "Tajawal", sans-serif;
+        }
+        body {
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        header, footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+        }
+        header .logo h2 {
+            margin: 0;
+        }
+
+        /* ========== CONTAINER & MAIN CARD ========== */
+        .service {
+            max-width: 500px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 20px;
+        }
+        .service h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .service p {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        /* ========== INPUT GROUP ========== */
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        .input-group input[type="text"] {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+        .input-group input[type="text"]::placeholder {
+            color: #999;
+        }
+        .input-group img.icon {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            opacity: 0.7;
+        }
+
+        /* ========== BUTTONS ========== */
+        button {
+            display: inline-block;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 5px;
+            margin-bottom: 10px;
+        }
+        #generateAdButton {
+            background: #28a745;
+            color: #fff;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 5px;
+        }
+        #generateAdButton:hover {
+            background: #218838;
+        }
+        #toggleAdvancedMode {
+            background: #007bff;
+            color: #fff;
+            font-weight: bold;
+            width: 100%;
+        }
+        #toggleAdvancedMode:hover {
+            background: #0069d9;
+        }
+
+        /* ========== ADVANCED MODE SECTION ========== */
+        #advancedMode {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        #advancedMode h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .checkbox-group label {
+            font-size: 14px;
+        }
+
+        /* ========== RESULT BOX ========== */
+        .result-box {
+            background: #222;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 15px;
+            line-height: 1.8;
+            min-height: 80px;
+            white-space: pre-wrap; /* لعرض النصوص المتعددة الأسطر بشكل صحيح */
+        }
+        .result-box strong {
+            color: #FFD700;
+        }
+
+        /* ========== FOOTER ========== */
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 480px) {
+            .service {
+                margin: 20px;
+                padding: 15px;
+            }
+            button {
+                margin-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <h2>كومة</h2>
+        </div>
+    </header>
+
+    <!-- MAIN SECTION -->
+    <section class="service">
+        <h1>✍️ كتابة إعلان تسويقي</h1>
+        <p>ادخل تفاصيل المنتج والجمهور واحصل على إعلان احترافي!</p>
+
+        <!-- FORM -->
+        <form id="adWritingOutputForm">
+
+            <!-- نوع المنتج / الخدمة -->
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/711/711284.png" alt="product-icon">
+                <input type="text" id="product" list="product-list" placeholder="🛍️ نوع المنتج / الخدمة">
+                <datalist id="product-list">
+                    <option value="دورة تدريبية"></option>
+                    <option value="تطبيق إلكتروني"></option>
+                    <option value="متجر إلكتروني"></option>
+                    <option value="استشارة أعمال"></option>
+                </datalist>
+            </div>
+
+            <!-- الجمهور المستهدف -->
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png" alt="audience-icon">
+                <input type="text" id="audience" list="audience-list" placeholder="🎯 الجمهور المستهدف">
+                <datalist id="audience-list">
+                    <option value="أصحاب المشاريع"></option>
+                    <option value="الطلاب"></option>
+                    <option value="الشركات الصغيرة"></option>
+                    <option value="المستقلين"></option>
+                </datalist>
+            </div>
+
+            <!-- المشكلة التي يحلها المنتج -->
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/8142/8142380.png" alt="problem-icon">
+                <input type="text" id="painPoint" list="painPoint-list" placeholder="⚡ المشكلة التي يحلها المنتج">
+                <datalist id="painPoint-list">
+                    <option value="قلة المبيعات"></option>
+                    <option value="ضعف التفاعل"></option>
+                    <option value="صعوبة التسويق"></option>
+                    <option value="نقص الوعي بالعلامة التجارية"></option>
+                </datalist>
+            </div>
+
+            <!-- USP -->
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/992/992659.png" alt="usp-icon">
+                <input type="text" id="usp" list="usp-list" placeholder="⭐ نقطة البيع الفريدة">
+                <datalist id="usp-list">
+                    <option value="أرخص سعر"></option>
+                    <option value="أسرع خدمة"></option>
+                    <option value="جودة عالية"></option>
+                    <option value="دعم فني مستمر"></option>
+                </datalist>
+            </div>
+
+            <!-- العرض الخاص -->
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1907/1907931.png" alt="offer-icon">
+                <input type="text" id="offer" list="offer-list" placeholder="🔥 العرض الخاص">
+                <datalist id="offer-list">
+                    <option value="خصم 30%"></option>
+                    <option value="شحن مجاني"></option>
+                    <option value="هدية مجانية"></option>
+                    <option value="اشتراك مجاني لفترة محدودة"></option>
+                </datalist>
+            </div>
+
+            <!-- المنصة الإعلانية -->
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/564/564435.png" alt="platform-icon">
+                <input type="text" id="platform" list="platform-list" placeholder="📢 المنصة الإعلانية">
+                <datalist id="platform-list">
+                    <option value="فيسبوك"></option>
+                    <option value="إنستغرام"></option>
+                    <option value="جوجل إعلانات"></option>
+                    <option value="تيك توك"></option>
+                </datalist>
+            </div>
+
+            <!-- زر إنشاء الإعلان -->
+            <button id="generateAdButton" type="button">✨ ✨ إنشاء الإعلان</button>
+        </form>
+
+        <!-- زر تفعيل الوضع المتقدم -->
+        <button id="toggleAdvancedMode">⚡ تفعيل الوضع المتقدم</button>
+
+        <!-- الحقول الإضافية (الوضع المتقدم) -->
+        <div id="advancedMode" style="display: none;">
+            <h3>⚙️ الوضع المتقدم</h3>
+            <p>أضف تفاصيل إضافية لجعل إعلانك أكثر احترافية.</p>
+
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/323/323340.png" alt="model-icon">
+                <input type="text" id="adModel" list="adModel-list" placeholder="📝 نموذج الإعلان (AIDA, PAS...)">
+                <datalist id="adModel-list">
+                    <option value="AIDA"></option>
+                    <option value="PAS"></option>
+                    <option value="BAB"></option>
+                    <option value="QUEST"></option>
+                </datalist>
+            </div>
+
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3528/3528643.png" alt="emotion-icon">
+                <input type="text" id="emotion" list="emotion-list" placeholder="💡 المشاعر المستهدفة (تحفيزي، مضحك...)">
+                <datalist id="emotion-list">
+                    <option value="تحفيزي"></option>
+                    <option value="مضحك"></option>
+                    <option value="درامي"></option>
+                    <option value="طارئ"></option>
+                </datalist>
+            </div>
+
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1161/1161831.png" alt="cta-icon">
+                <input type="text" id="cta" placeholder="🚀 نداء الإجراء (اشترك الآن...)">
+            </div>
+
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/927/927286.png" alt="keywords-icon">
+                <input type="text" id="keywords" placeholder="🔑 الكلمات المفتاحية">
+            </div>
+
+            <div class="input-group">
+                <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3334/3334322.png" alt="tone-icon">
+                <input type="text" id="tone" list="tone-list" placeholder="🎤 نبرة الإعلان (احترافية، مرحة...)">
+                <datalist id="tone-list">
+                    <option value="احترافية"></option>
+                    <option value="مرحة"></option>
+                    <option value="ملهمة"></option>
+                </datalist>
+            </div>
+
+            <!-- مثال على خاصية التفكير العميق -->
+            <div class="checkbox-group">
+                <input type="checkbox" id="deepThinking" />
+                <label for="deepThinking">تفعيل التفكير العميق (زيادة التحليل والإبداع)</label>
+            </div>
+        </div>
+
+        <!-- صندوق عرض النتيجة -->
+        <h2>📌 النتيجة:</h2>
+        <div id="adWritingOutput" class="result-box">🔍 سيتم عرض النتيجة هنا...</div>
+    </section>
+
+    <script>
+        // عند تحميل الصفحة
+        document.addEventListener("DOMContentLoaded", function() {
+            // ربط زر إنشاء الإعلان بالدالة
+            document.getElementById("generateAdButton").addEventListener("click", function() {
+                console.log("✅ الزر يعمل!");
+                generateContent();
+            });
+
+            // ربط زر تفعيل الوضع المتقدم
+            document.getElementById("toggleAdvancedMode").addEventListener("click", function() {
+                var advancedSection = document.getElementById("advancedMode");
+                advancedSection.style.display = (advancedSection.style.display === "none") ? "block" : "none";
+            });
+        });
+
+        async function generateContent() {
+            // إظهار رسالة انتظار
+            document.getElementById("adWritingOutput").innerHTML = "<strong>⏳ جاري التوليد...</strong>";
+
+            // جلب قيم الحقول
+            let inputs = {
+                product:   document.getElementById("product").value.trim(),
+                audience:  document.getElementById("audience").value.trim(),
+                painPoint: document.getElementById("painPoint").value.trim(),
+                usp:       document.getElementById("usp").value.trim(),
+                offer:     document.getElementById("offer").value.trim(),
+                platform:  document.getElementById("platform").value.trim(),
+                adModel:   document.getElementById("adModel").value.trim(),
+                emotion:   document.getElementById("emotion").value.trim(),
+                cta:       document.getElementById("cta").value.trim(),
+                keywords:  document.getElementById("keywords").value.trim(),
+                tone:      document.getElementById("tone").value.trim(),
+                deepThinking: document.getElementById("deepThinking").checked
+            };
+
+            // تجهيز الـ Prompt
+            let prompt = `
+أريد منك كتابة إعلان تسويقي احترافي بالعربية لمنتج/خدمة:
+- اسم المنتج: ${inputs.product || "غير محدد"}
+- الجمهور المستهدف: ${inputs.audience || "غير محدد"}
+- المشكلة التي يحلها المنتج: ${inputs.painPoint || "غير محدد"}
+- نقطة البيع الفريدة (USP): ${inputs.usp || "غير محدد"}
+- العرض الخاص: ${inputs.offer || "لا يوجد"}
+- المنصة الإعلانية: ${inputs.platform || "غير محدد"}
+
+استخدم نموذج: ${inputs.adModel || "عادي"}
+المشاعر المستهدفة: ${inputs.emotion || "محايد"}
+نبرة الإعلان: ${inputs.tone || "عادية"}
+الكلمات المفتاحية: ${inputs.keywords || "لا يوجد"}
+نداء الإجراء (CTA): ${inputs.cta || "بدون"}
+
+أريدك أن تصيغ هذا الإعلان بطريقة جذابة ومتكاملة، مع كتابة فقرة أو فقرتين توضح مزايا المنتج، وكيف يعالج المشكلة، وتختم بنداء الإجراء. استخدم أسلوبًا تسويقيًا ملفتًا للنظر.
+`;
+
+            // لو تم تفعيل "التفكير العميق"، نضيف تعليمات أكثر تفصيلاً ونرفع الـ temperature
+            let temperatureValue = 0.7;
+            let presencePenaltyValue = 0;
+            if (inputs.deepThinking) {
+                prompt += `
+اضف تحليل أعمق للفوائد وكيفية ربطها باحتياجات الجمهور، 
+استخدم لغة إبداعية وعاطفية أكثر، 
+وحاول أن تتوسع بالوصف لتجعل القارئ يشعر وكأنه يعيش التجربة.
+`;
+                temperatureValue = 1.0;
+                presencePenaltyValue = 0.8;
+            }
+
+            console.log("🔄 جاري إرسال الطلب إلى OpenAI...\n", prompt);
+
+            try {
+                const response = await axios.post(
+                    "https://api.openai.com/v1/chat/completions",
+                    {
+                        model: "gpt-3.5-turbo",
+                        messages: [{ role: "user", content: prompt }],
+                        max_tokens: 400,
+                        temperature: temperatureValue,
+                        presence_penalty: presencePenaltyValue,
+                        frequency_penalty: 0
+                    },
+                    {
+                        headers: {
+                            "Authorization": "Bearer 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",
+                            "Content-Type": "application/json"
+                        }
+                    }
+                );
+
+                // عرض النتيجة
+                document.getElementById("adWritingOutput").innerText =
+                    response.data.choices[0].message.content.trim();
+
+            } catch (error) {
+                console.error("❌ خطأ في الاتصال بـ OpenAI API:", error);
+                document.getElementById("adWritingOutput").innerHTML =
+                    "<strong>❌ حدث خطأ أثناء التوليد، حاول مرة أخرى.</strong>";
+            }
+        }
+    </script>
+
+    <footer>
+        <p>© 2025 كومة - جميع الحقوق محفوظة</p>
+    </footer>
+</body>
+</html>
